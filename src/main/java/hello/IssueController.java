@@ -2,6 +2,12 @@ package hello;
 
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("repos")
 public class IssueController {
@@ -61,4 +67,27 @@ public class IssueController {
         System.out.println(name);
         System.out.println(age);
     }
+
+
+    // 通过 HttpServletResponse 设置响应的内容
+    @RequestMapping("search")
+    public void search(
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) throws IOException {
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        response.getWriter().write("haha");
+    }
+
+    // 通过 @ResponseBody 设置响应为 json
+    @RequestMapping("search2")
+    @ResponseBody
+    public Object search2(){
+        Map<String,Object> result = new HashMap<>();
+        result.put("name","aaa");
+        result.put("age",18);
+        return result;
+    }
+
+
 }
